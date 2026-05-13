@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Professional — Denys Plyvun</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-dark: #050a14;
+      --bg-card: #0d1526;
+      --bg-card-hover: #111e36;
+      --blue-primary: #00b4ff;
+      --text-main: #e0eaf8;
+      --text-muted: #6b85a8;
+      --border: rgba(0,180,255,0.2);
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(5,10,20,0.95); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-size: 1.2rem; font-weight: 700; }
+    .bracket { color: var(--blue-primary); }
+    nav { display: flex; gap: 2rem; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: var(--blue-primary); }
+    .hero { position: relative; overflow: hidden; padding: 100px 2rem 80px; max-width: 1100px; margin: 0 auto; }
+    .hero-content { position: relative; z-index: 2; max-width: 580px; }
+    .hero-sub { color: var(--blue-primary); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.2rem; color: #fff; }
+    .highlight { color: var(--blue-primary); text-shadow: 0 0 20px rgba(0,180,255,0.5); }
+    .hero-desc { color: var(--text-muted); font-size: 1.05rem; }
+    .hero-role { display: inline-block; margin-top: 1.5rem; background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3); border-radius: 30px; padding: 0.4rem 1.2rem; font-size: 0.85rem; color: var(--blue-primary); font-weight: 600; }
+    .hero-decoration { position: absolute; top: 0; right: 0; width: 50%; height: 100%; z-index: 1; }
+    .circle { position: absolute; border-radius: 50%; border: 1px solid var(--border); }
+    .c1 { width: 420px; height: 420px; top: -80px; right: -80px; }
+    .c2 { width: 290px; height: 290px; top: 50px; right: 65px; border-color: rgba(0,180,255,0.1); }
+    .hero-photo { position: absolute; top: 50%; right: 90px; transform: translateY(-50%); width: 260px; height: 260px; border-radius: 50%; overflow: hidden; border: 3px solid var(--blue-primary); box-shadow: 0 0 50px rgba(0,180,255,0.35), 0 0 100px rgba(0,180,255,0.1); z-index: 3; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .section { padding: 80px 2rem; }
+    .section-alt { background: linear-gradient(180deg, transparent, rgba(0,50,100,0.06), transparent); }
+    .section-header { max-width: 1100px; margin: 0 auto 3rem; padding-left: 1.5rem; border-left: 3px solid var(--blue-primary); }
+    .section-number { display: block; font-size: 0.75rem; letter-spacing: 0.25em; color: var(--blue-primary); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .section-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: #fff; margin-bottom: 0.6rem; }
+    .section-desc { color: var(--text-muted); font-size: 0.95rem; }
+    .cards-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; transition: transform 0.2s, background 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; gap: 0.8rem; }
+    .card:hover { transform: translateY(-4px); background: var(--bg-card-hover); box-shadow: 0 8px 30px rgba(0,180,255,0.1); }
+    .card-icon { font-size: 2rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .card > p { color: var(--text-muted); font-size: 0.9rem; }
+    .nivel { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.6rem; border-radius: 20px; margin-bottom: 0.2rem; }
+    .nivel-avanzado   { background: rgba(0,255,150,0.1); color: #00ff96; border: 1px solid rgba(0,255,150,0.3); }
+    .nivel-intermedio { background: rgba(0,180,255,0.1); color: #00b4ff; border: 1px solid rgba(0,180,255,0.3); }
+    .nivel-basico     { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { background: rgba(0,180,255,0.1); color: var(--blue-primary); border: 1px solid rgba(0,180,255,0.3); border-radius: 20px; padding: 0.2rem 0.7rem; font-size: 0.75rem; font-weight: 600; }
+    .example-box { background: rgba(0,180,255,0.05); border-left: 3px solid var(--blue-primary); border-radius: 0 8px 8px 0; padding: 0.8rem 1rem; margin-top: auto; }
+    .example-label { display: block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-primary); margin-bottom: 0.3rem; font-weight: 700; }
+    .example-box p { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* ── PROJECT HERO BANNER ── */
+    .project-banner {
+      max-width: 1100px; margin: 0 auto 3rem;
+      background: linear-gradient(135deg, #0d1526 60%, rgba(0,180,255,0.06));
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 2.4rem 2.8rem;
+      display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;
+    }
+    .project-banner-icon { font-size: 3.5rem; flex-shrink: 0; margin-top: 4px; }
+    .project-banner-info { flex: 1; min-width: 220px; }
+    .project-banner-info h3 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .project-banner-info p { color: var(--text-muted); font-size: 0.93rem; margin-bottom: 1rem; line-height: 1.7; }
+    .meta-pills { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .meta-pill { background: rgba(0,180,255,0.08); border: 1px solid rgba(0,180,255,0.25); border-radius: 20px; padding: 0.25rem 0.9rem; font-size: 0.78rem; color: var(--blue-primary); font-weight: 600; }
+
+    /* ── REPTES GRID ── */
+    .reptes-grid { max-width: 1100px; margin: 0 auto 3.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.4rem; }
+    .repte-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem; transition: transform 0.2s, background 0.2s, box-shadow 0.2s; }
+    .repte-card:hover { transform: translateY(-4px); background: var(--bg-card-hover); box-shadow: 0 8px 28px rgba(0,180,255,0.1); }
+    .repte-num { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-primary); font-weight: 700; }
+    .repte-card h4 { font-size: 1rem; font-weight: 700; color: #fff; }
+    .repte-card p { color: var(--text-muted); font-size: 0.87rem; flex: 1; }
+
+    /* ── TECH TABLE ── */
+    .tech-table-wrap { max-width: 1100px; margin: 0 auto 3.5rem; overflow-x: auto; }
+    .tech-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .tech-table thead tr { background: rgba(0,180,255,0.08); }
+    .tech-table th { text-align: left; padding: 0.75rem 1rem; color: var(--blue-primary); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .tech-table td { padding: 0.7rem 1rem; color: var(--text-muted); border-bottom: 1px solid rgba(0,180,255,0.07); vertical-align: top; }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-table tr:hover td { background: rgba(0,180,255,0.03); }
+    .tech-table td:first-child { color: var(--text-main); font-weight: 600; white-space: nowrap; }
+
+    /* ── ROL CARDS ── */
+    .rol-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; }
+    .rol-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: background 0.2s, box-shadow 0.2s; }
+    .rol-card:hover { background: var(--bg-card-hover); box-shadow: 0 6px 24px rgba(0,180,255,0.09); }
+    .rol-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .rol-body h4 { font-size: 0.97rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+    .rol-body p { color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; }
+
+    /* ── SUBSECTION LABEL ── */
+    .sub-label { max-width: 1100px; margin: 0 auto 1.2rem; padding-left: 1.2rem; border-left: 2px solid rgba(0,180,255,0.3); }
+    .sub-label span { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-primary); font-weight: 700; }
+    .sub-label h3 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-top: 0.2rem; }
+   
+    /* ── CONTACTE ── */
+.contact-wrapper {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+.contact-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.8rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.contact-card:hover {
+  transform: translateY(-4px); background: var(--bg-card-hover);
+  box-shadow: 0 8px 30px rgba(0,180,255,0.12);
+}
+.contact-card-icon {
+  font-size: 2rem; flex-shrink: 0;
+  background: rgba(0,180,255,0.08); border: 1px solid rgba(0,180,255,0.2);
+  border-radius: 50%; width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-card-body { display: flex; flex-direction: column; gap: 0.2rem; }
+.contact-card-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue-primary); font-weight: 700; }
+.contact-card-value { font-size: 0.97rem; font-weight: 600; color: var(--text-main); }
+.contact-card-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+/* ── GITHUB ── */
+.github-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.github-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.8rem;
+  display: flex; flex-direction: column; gap: 0.9rem;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  text-decoration: none; color: inherit;
+  position: relative; overflow: hidden;
+}
+.github-card:hover {
+  transform: translateY(-4px); background: var(--bg-card-hover);
+  box-shadow: 0 8px 30px rgba(0,180,255,0.12);
+}
+.github-card.disabled { pointer-events: none; opacity: 0.65; }
+.github-badge-soon {
+  position: absolute; top: 1rem; right: 1rem;
+  background: rgba(255,180,0,0.12); border: 1px solid rgba(255,180,0,0.35);
+  color: #ffb400; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.18rem 0.65rem; border-radius: 20px;
+}
+.github-card-top { display: flex; align-items: center; gap: 0.9rem; }
+.github-card-icon {
+  font-size: 1.8rem; background: rgba(0,180,255,0.08);
+  border: 1px solid rgba(0,180,255,0.2); border-radius: 10px;
+  width: 52px; height: 52px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.github-card-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+.github-card-repo { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
+.github-card-repo span { color: var(--blue-primary); }
+.github-card-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; flex: 1; }
+.github-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.github-card-footer .tag-list { gap: 0.35rem; }
+.github-link-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3);
+  color: var(--blue-primary); border-radius: 20px;
+  padding: 0.3rem 1rem; font-size: 0.78rem; font-weight: 700;
+  text-decoration: none; transition: background 0.2s;
+  pointer-events: all;
+}
+.github-link-btn:hover { background: rgba(0,180,255,0.2); }
+
+
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="bracket">&lt;</span> Denys Plyvun <span class="bracket">/&gt;</span>
+      </div>
+      <nav>
+  <a href="#competencies">Competències</a>
+  <a href="#projecte">Projecte</a>
+  <a href="#github">GitHub</a>
+  <a href="#contacte">Contacte</a>
+</nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-sub">Portfolio Professional · DAM 2025–26</p>
+      <h1>Denys <span class="highlight">Plyvun</span> </h1>
+      <p class="hero-desc">Estudiant de primer curs de DAM al Politècnics Barcelona. Apassionat pel desenvolupament de software, les bases de dades i la creació de projectes reals.</p>
+      <span class="hero-role">Desenvolupador d'Aplicacions Multiplataforma Junior</span>
+    </div>
+    <div class="hero-decoration">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="hero-photo">
+        <img src="foto.jpeg" alt="Foto de Denys Plyvun" />
+      </div>
+    </div>
+  </section>
+
+  <main id="competencies">
+
+    <!-- ======= COMPETÈNCIES TÈCNIQUES ======= -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2>Competències <span class="highlight">Tècniques</span></h2>
+        <p class="section-desc">Tecnologies, eines i llenguatges treballats durant el curs amb projectes reals.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-icon">🗄️</div>
+          <span class="nivel nivel-avanzado">Avançat</span>
+          <h3>MySQL / Bases de Dades</h3>
+          <p>Model relacional, normalització, DDL/DML/DCL, JOINs, subconsultes, triggers, procediments emmagatzemats, transaccions i introducció a MongoDB (NoSQL).</p>
+          <div class="tag-list">
+            <span class="tag">DDL/DML</span><span class="tag">Triggers</span><span class="tag">Procediments</span>
+            <span class="tag">JOIN</span><span class="tag">Transaccions</span><span class="tag">MongoDB</span><span class="tag">DCL</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Models relacionals complets a Protectora Animals i Football Manager: SQL de creació, inserció, usuaris i privilegis GRANT/REVOKE.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">☕</div>
+          <span class="nivel nivel-intermedio">Intermedi–Avançat</span>
+          <h3>Java (OOP)</h3>
+          <p>POO avançada: herència, polimorfisme, encapsulament, interfaces. Col·leccions, fitxers, JDBC, interfícies gràfiques amb events i testing amb JUnit.</p>
+          <div class="tag-list">
+            <span class="tag">POO</span><span class="tag">JDBC</span><span class="tag">JUnit</span>
+            <span class="tag">Swing/JavaFX</span><span class="tag">ArrayList</span><span class="tag">HashMap</span><span class="tag">Fitxers</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Virtual Pet, Quiz interactiu, Football Manager i Joc 2D: 4 aplicacions Java completes amb proves unitàries i debug.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <span class="nivel nivel-intermedio">Intermedi</span>
+          <h3>HTML5 / CSS3 / JavaScript</h3>
+          <p>Maquetació semàntica, layouts responsive, formularis accessibles i manipulació del DOM. Anàlisi d'accessibilitat web.</p>
+          <div class="tag-list">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Flexbox/Grid</span>
+            <span class="tag">JavaScript</span><span class="tag">DOM</span><span class="tag">Accessibilitat</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Web completa Protectora Animals II amb versió en anglès, informe d'accessibilitat i Rainbow Spreadsheet a Football Manager.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📄</div>
+          <span class="nivel nivel-intermedio">Intermedi</span>
+          <h3>XML / JSON / XSLT</h3>
+          <p>Creació i manipulació de documents XML i JSON, validació amb DTD i JSON Schema, transformació de documents amb XSLT.</p>
+          <div class="tag-list">
+            <span class="tag">XML</span><span class="tag">JSON</span><span class="tag">DTD</span>
+            <span class="tag">XSLT</span><span class="tag">JSON Schema</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Fitxes de mascotes en XML/JSON amb validació DTD i transformació XSLT al projecte Protectora Animals II.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <span class="nivel nivel-intermedio">Intermedi</span>
+          <h3>Entorns de Desenvolupament</h3>
+          <p>Configuració d'IDEs, diagrames UML (classes, seqüència, flux), testing, refactorització i gestió de tasques amb Kanban.</p>
+          <div class="tag-list">
+            <span class="tag">IntelliJ IDEA</span><span class="tag">VS Code</span><span class="tag">UML</span>
+            <span class="tag">Kanban</span><span class="tag">Git</span><span class="tag">Refactorització</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Diagrames de classes i seqüència per a Football Manager, gestió de versions amb Git i configuració d'entorns de desenvolupament.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <span class="nivel nivel-basico">Bàsic–Intermedi</span>
+          <h3>Disseny UI/UX</h3>
+          <p>Prototipatge d'interfícies amb Figma, principis d'usabilitat, accessibilitat web (WCAG) i identitat visual corporativa.</p>
+          <div class="tag-list">
+            <span class="tag">Figma</span><span class="tag">WCAG</span><span class="tag">Prototips</span>
+            <span class="tag">Moodboard</span><span class="tag">Usabilitat</span>
+          </div>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Disseny de prototips en Figma i identitat corporativa (logo, moodboard, paleta de colors) per a Protectora Animals II.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= COMPETÈNCIES TRANSVERSALS ======= -->
+    <section class="section section-alt">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2>Competències <span class="highlight">Transversals</span></h2>
+        <p class="section-desc">Habilitats personals i professionals que aplico en el dia a dia dels projectes.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Treball en Equip</h3>
+          <p>Col·laboració activa per assolir objectius comuns, repartint tasques i resolent conflictes de manera constructiva.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Desenvolupament dels 4 projectes en equip, coordinant entregues i integrant parts de codi de diferents companys.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📋</div>
+          <h3>Organització i Metodologia Àgil</h3>
+          <p>Planificació de tasques i sprints amb eines de gestió visual per complir terminis en projectes reals.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Gestió del projecte Football Manager amb Kanban a Airtable, organitzant tasques per fases i prioritats.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>Comunicació Tècnica</h3>
+          <p>Capacitat d'explicar decisions tècniques de forma clara, tant per escrit com oralment en presentacions.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Redacció de documentació tècnica, informes d'accessibilitat i presentació de projectes davant professors.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>Resolució de Problemes</h3>
+          <p>Anàlisi sistemàtica d'errors i cerca de solucions mitjançant debug, proves unitàries i documentació tècnica.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Debug pas a pas i proves unitàries amb JUnit als projectes Java, localitzant i corregint errors de lògica.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">💡</div>
+          <h3>Creativitat i Disseny</h3>
+          <p>Proposta de solucions visuals i funcionals aplicant criteris d'usabilitat i accessibilitat als projectes.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Disseny de prototips en Figma, identitat corporativa (logo, moodboard) i anàlisi d'accessibilitat amb Rainbow Spreadsheet.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📈</div>
+          <h3>Aprenentatge Autònom</h3>
+          <p>Actitud proactiva per aprendre noves tecnologies i resoldre reptes nous de forma independent.</p>
+          <div class="example-box">
+            <span class="example-label">Exemple real</span>
+            <p>Introducció autònoma a MongoDB (NoSQL), JavaScript DOM i ERP Dolibarr com a tecnologies noves del curs.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= PROJECTE ======= -->
+    <section class="section" id="projecte">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2>El meu <span class="highlight">Projecte</span></h2>
+        <p class="section-desc">Free Project — Projecte intermodular que integra set reptes tècnics reals del cicle DAM.</p>
+      </div>
+
+      <!-- Banner principal -->
+      <div class="project-banner">
+        <div class="project-banner-icon">🚀</div>
+        <div class="project-banner-info">
+          <h3>Free Project — Projecte Intermodular</h3>
+          <p>Projecte semi-lliure que combina múltiples reptes tècnics per posar en pràctica els coneixements adquirits als mòduls del cicle d'Informàtica al Centre d'Estudis Politècnics de Barcelona. Integra set grans àrees: ERP/CRM, joc 2D, bases de dades, UML, servidors, comunicació professional en anglès i Landing Page.</p>
+          <div class="meta-pills">
+            <span class="meta-pill">🏫 Politècnics Barcelona</span>
+            <span class="meta-pill">📅 Curs 2025–26</span>
+            <span class="meta-pill">7 reptes tècnics</span>
+            <span class="meta-pill">Intermodular</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reptes -->
+      <div class="sub-label">
+        <span>Estructura del projecte</span>
+        <h3>Els 7 Reptes Tècnics</h3>
+      </div>
+
+      <div class="reptes-grid">
+
+        <div class="repte-card">
+          <div class="card-icon">🏥</div>
+          <p class="repte-num">Repte 01</p>
+          <h4>Gestió de la Clínica Veterinària</h4>
+          <p>Implementació d'un CRM/ERP (Dolibarr) per digitalitzar la gestió diària i obrir una nova línia de venda de productes per a mascotes.</p>
+          <div class="tag-list"><span class="tag">Dolibarr</span><span class="tag">ERP/CRM</span><span class="tag">Gestió empresarial</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">🎮</div>
+          <p class="repte-num">Repte 02</p>
+          <h4>Joc 2D en Java</h4>
+          <p>Desenvolupament d'un joc 2D de temàtica lliure amb Java Swing, gestió d'events de teclat i ratolí, control de versions amb GitHub i connexió a MySQL.</p>
+          <div class="tag-list"><span class="tag">Java</span><span class="tag">Swing</span><span class="tag">GitHub</span><span class="tag">MySQL</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">⚙️</div>
+          <p class="repte-num">Repte 03</p>
+          <h4>Automatització de la Base de Dades</h4>
+          <p>Creació de procedures i triggers al Football Manager que automatitzen tasques i asseguren la integritat de les dades.</p>
+          <div class="tag-list"><span class="tag">MySQL</span><span class="tag">Triggers</span><span class="tag">Procedures</span><span class="tag">Integritat</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">📐</div>
+          <p class="repte-num">Repte 04</p>
+          <h4>Anàlisi de Funcionalitats UML</h4>
+          <p>Diagrama de casos d'ús del Football Manager i diagrames de seqüència del joc 2D per documentar actors i interaccions del sistema.</p>
+          <div class="tag-list"><span class="tag">UML</span><span class="tag">Casos d'ús</span><span class="tag">Seqüència</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">🖥️</div>
+          <p class="repte-num">Repte 05</p>
+          <h4>Instal·lació i Administració de Servidors</h4>
+          <p>Configuració d'un servidor Ubuntu 22.04 Server LTS i Windows Server 2019: xarxa, usuaris, grups, permisos i proves des de client.</p>
+          <div class="tag-list"><span class="tag">Ubuntu 22.04</span><span class="tag">Windows Server</span><span class="tag">Xarxa</span><span class="tag">Permisos</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">🇬🇧</div>
+          <p class="repte-num">Repte 06</p>
+          <h4>Product Sheet i Presentació en Anglès</h4>
+          <p>Creació d'una fitxa de producte del joc i una presentació professional per a inversors potencials, íntegrament en anglès.</p>
+          <div class="tag-list"><span class="tag">Anglès professional</span><span class="tag">Product Sheet</span><span class="tag">Pitch</span></div>
+        </div>
+
+        <div class="repte-card">
+          <div class="card-icon">🌐</div>
+          <p class="repte-num">Repte 07</p>
+          <h4>Landing Page amb Identitat Corporativa</h4>
+          <p>Disseny i desenvolupament d'una pàgina web amb manual d'identitat corporativa i minijoc, amb enfocament mobile-first.</p>
+          <div class="tag-list"><span class="tag">HTML/CSS</span><span class="tag">Mobile-first</span><span class="tag">Branding</span><span class="tag">Minijoc</span></div>
+        </div>
+
+      </div>
+
+      <!-- Tecnologies -->
+      <div class="sub-label" style="margin-top:3rem;">
+        <span>Stack tecnològic</span>
+        <h3>Tecnologies Utilitzades</h3>
+      </div>
+
+      <div class="tech-table-wrap">
+        <table class="tech-table">
+          <thead>
+            <tr>
+              <th>Àrea</th>
+              <th>Tecnologia / Eina</th>
+              <th>Ús dins del projecte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Programació</td>
+              <td><span class="tag">Java (Swing)</span></td>
+              <td>Joc 2D: gràfics, events de teclat i ratolí, lògica del joc</td>
+            </tr>
+            <tr>
+              <td>Web</td>
+              <td><span class="tag">HTML / CSS</span></td>
+              <td>Landing Page responsive amb enfocament mobile-first</td>
+            </tr>
+            <tr>
+              <td>Bases de dades</td>
+              <td><span class="tag">MySQL</span></td>
+              <td>BD del joc (usuaris i puntuacions) i Football Manager (procedures i triggers)</td>
+            </tr>
+            <tr>
+              <td>Control de versions</td>
+              <td><span class="tag">Git</span> <span class="tag">GitHub</span></td>
+              <td>Gestió del codi font del joc: branques, commits i integració de canvis</td>
+            </tr>
+            <tr>
+              <td>ERP / CRM</td>
+              <td><span class="tag">Dolibarr</span></td>
+              <td>Gestió empresarial de la clínica veterinària: productes, clients i facturació</td>
+            </tr>
+            <tr>
+              <td>Servidors</td>
+              <td><span class="tag">Ubuntu 22.04 Server</span> <span class="tag">Windows Server 2019</span></td>
+              <td>Instal·lació, configuració de xarxa, usuaris, grups i permisos</td>
+            </tr>
+            <tr>
+              <td>Documentació UML</td>
+              <td><span class="tag">Casos d'ús</span> <span class="tag">Diagrames de seqüència</span></td>
+              <td>Football Manager (actors/interaccions) i joc 2D (flux de funcionalitats)</td>
+            </tr>
+            <tr>
+              <td>Idioma</td>
+              <td><span class="tag">Anglès professional</span></td>
+              <td>Product sheet i pitch per a inversors potencials</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- El meu rol -->
+      <div class="sub-label" style="margin-top:3rem;">
+        <span>Participació personal</span>
+        <h3>El Meu Rol dins del Projecte</h3>
+      </div>
+
+      <div class="rol-grid">
+
+        <div class="rol-card">
+          <div class="rol-icon">🗄️</div>
+          <div class="rol-body">
+            <h4>Desenvolupador de Base de Dades</h4>
+            <p>Creació de procedures i triggers a MySQL per al Football Manager. Disseny i gestió de la BD del joc 2D (usuaris i puntuacions).</p>
+          </div>
+        </div>
+
+        <div class="rol-card">
+          <div class="rol-icon">🎮</div>
+          <div class="rol-body">
+            <h4>Desenvolupador de Programari — Joc 2D</h4>
+            <p>Programació del joc en Java amb Swing, gestió d'events de teclat i ratolí i connexió amb la base de dades.</p>
+          </div>
+        </div>
+
+        <div class="rol-card">
+          <div class="rol-icon">🖥️</div>
+          <div class="rol-body">
+            <h4>Administrador de Sistemes</h4>
+            <p>Instal·lació i configuració dels servidors Ubuntu 22.04 i Windows Server 2019. Gestió d'usuaris, grups i permisos.</p>
+          </div>
+        </div>
+
+        <div class="rol-card">
+          <div class="rol-icon">📐</div>
+          <div class="rol-body">
+            <h4>Analista Funcional</h4>
+            <p>Elaboració dels diagrames de casos d'ús del Football Manager i dels diagrames de seqüència del joc 2D.</p>
+          </div>
+        </div>
+
+        <div class="rol-card">
+          <div class="rol-icon">🎨</div>
+          <div class="rol-body">
+            <h4>Dissenyador Web</h4>
+            <p>Creació de la Landing Page amb disseny responsive (mobile-first) i manual d'identitat corporativa.</p>
+          </div>
+        </div>
+
+        <div class="rol-card">
+          <div class="rol-icon">🇬🇧</div>
+          <div class="rol-body">
+            <h4>Comunicador Tècnic</h4>
+            <p>Redacció del product sheet i elaboració de la presentació professional en anglès per a inversors.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+<!-- ======= GITHUB ======= -->
+<section class="section" id="github">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2>Els meus <span class="highlight">Repositoris</span></h2>
+    <p class="section-desc">Projectes publicats a GitHub desenvolupats durant el curs DAM 2025–26.</p>
+  </div>
+
+  <div class="github-grid">
+
+    <!-- Football Manager -->
+    <div class="github-card">
+      <div class="github-card-top">
+        <div class="github-card-icon">⚽</div>
+        <div>
+          <div class="github-card-title">Football Manager</div>
+          <div class="github-card-repo">
+            <span>danayap2526-cell</span> / NovusManagerJAVA
+          </div>
+        </div>
+      </div>
+      <p class="github-card-desc">Aplicació Java per a la gestió d'un club de futbol fictici. Inclou base de dades MySQL, procedures, triggers, interfície gràfica i proves unitàries amb JUnit.</p>
+      <div class="github-card-footer">
+        <div class="tag-list">
+          <span class="tag">Java</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">JUnit</span>
+          <span class="tag">JDBC</span>
+        </div>
+        <a class="github-link-btn" href="https://github.com/danayap2526-cell/NovusManagerJAVA" target="_blank" rel="noopener">
+          ⬡ Veure codi
+        </a>
+      </div>
+    </div>
+
+    <!-- Free Project (buit) -->
+    <div class="github-card disabled">
+      <span class="github-badge-soon">Pròximament</span>
+      <div class="github-card-top">
+        <div class="github-card-icon">🚀</div>
+        <div>
+          <div class="github-card-title">Free Project</div>
+          <div class="github-card-repo">
+            <span>dplyvun2526</span> / UltimoProyecto
+          </div>
+        </div>
+      </div>
+      <p class="github-card-desc">Projecte intermodular que integra 7 reptes tècnics: joc 2D en Java, ERP Dolibarr, servidors Ubuntu/Windows, Landing Page i documentació UML.</p>
+      <div class="github-card-footer">
+        <div class="tag-list">
+          <span class="tag">Java</span>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Ubuntu</span>
+        </div>
+        <a class="github-link-btn" href="https://github.com/dplyvun2526/UltimoProyecto" target="_blank" rel="noopener"
+           style="opacity:0.5; pointer-events:none;">
+          ⬡ Pròximament
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- ======= CONTACTE ======= -->
+<section class="section section-alt" id="contacte">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2>Posa't en <span class="highlight">Contacte</span></h2>
+    <p class="section-desc">No dubtis en contactar-me per a col·laboracions, pràctiques o qualsevol consulta professional.</p>
+  </div>
+
+  <div class="contact-wrapper">
+
+    <a class="contact-card" href="mailto:plyvundenys@gmail.com">
+      <div class="contact-card-icon">✉️</div>
+      <div class="contact-card-body">
+        <span class="contact-card-label">Correu electrònic</span>
+        <span class="contact-card-value">plyvundenys@gmail.com</span>
+        <span class="contact-card-sub">Resposta en 24–48 h</span>
+      </div>
+    </a>
+
+    <a class="contact-card" href="tel:+34604404082">
+      <div class="contact-card-icon">📱</div>
+      <div class="contact-card-body">
+        <span class="contact-card-label">Telèfon</span>
+        <span class="contact-card-value">+34 604 404 082</span>
+        <span class="contact-card-sub">WhatsApp disponible</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025–26 Denys Plyvun · DAM · Politècnics Barcelona</p>
+  </footer>
+
+</body>
+</html>
