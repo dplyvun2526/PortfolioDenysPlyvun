@@ -68,7 +68,16 @@
     .mobile-nav a:hover { color: var(--blue-primary); }
 
     /* ── HERO ── */
-    .hero { position: relative; overflow: hidden; padding: 60px 1.5rem 60px; max-width: 1100px; margin: 0 auto; }
+    .hero { 
+      position: relative; 
+      overflow: hidden; 
+      padding: 80px 1.5rem; 
+      min-height: 520px; 
+      max-width: 1100px; 
+      margin: 0 auto; 
+      display: flex; 
+      align-items: center; 
+    }
     .hero-content { position: relative; z-index: 2; max-width: 580px; }
     .hero-sub { color: var(--blue-primary); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
     .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.2rem; color: #fff; }
@@ -209,7 +218,7 @@
       nav { display: none; }
       .hamburger { display: flex; }
 
-      .hero { padding: 40px 1.2rem 50px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .hero { padding: 40px 1.2rem 50px; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: auto; }
       .hero-content { max-width: 100%; order: 2; }
       .hero-buttons { justify-content: center; flex-direction: column; width: 100%; }
       .btn { width: 100%; }
@@ -291,7 +300,6 @@
       <p class="hero-desc reveal">Estudiant de primer curs de DAM al Politècnics Barcelona. Apassionat pel desenvolupament de software, les bases de dades i la creació de projectes reals.</p>
       <span class="hero-role reveal">Desenvolupador d'Aplicacions Multiplataforma Junior</span>
       
-      <!-- Botones añadidos (Punto 4) -->
       <div class="hero-buttons reveal">
         <a href="#projecte" class="btn btn-primary">Veure el projecte</a>
         <a href="#contacte" class="btn btn-secondary">Contactar</a>
@@ -510,7 +518,7 @@
       </div>
     </section>
 
-    <!-- IDIOMES (Nueva sección - Punto 5) -->
+    <!-- IDIOMES -->
     <section class="section" id="idiomes">
       <div class="section-header reveal">
         <span class="section-number">03</span>
@@ -799,7 +807,7 @@
     <p>&copy; 2025–26 Denys Plyvun · DAM · Politècnics Barcelona</p>
   </footer>
 
-  <!-- Botón de volver arriba (Punto 7) -->
+  <!-- Botón de volver arriba -->
   <button id="backToTop" class="back-to-top" aria-label="Tornar a dalt">↑</button>
 
   <script>
@@ -823,7 +831,7 @@
       }
     });
 
-    // Scroll Reveal (Micro-interacciones - Punto 6)
+    // Scroll Reveal (Micro-interacciones)
     const revealElements = document.querySelectorAll('.reveal');
     const revealOptions = { 
       threshold: 0.1, 
@@ -834,7 +842,7 @@
       entries.forEach(entry => {
         if (!entry.isIntersecting) { return; }
         entry.target.classList.add('active');
-        observer.unobserve(entry.target); // Dejar de observar una vez ha aparecido
+        observer.unobserve(entry.target); 
       });
     }, revealOptions);
 
@@ -842,7 +850,7 @@
       revealOnScroll.observe(el);
     });
 
-    // Botón Volver Arriba (Punto 7)
+    // Botón Volver Arriba
     const backToTopBtn = document.getElementById('backToTop');
     
     window.addEventListener('scroll', () => {
